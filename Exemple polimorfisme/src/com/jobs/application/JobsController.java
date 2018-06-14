@@ -59,8 +59,9 @@ public class JobsController {
     String employees = "";
     String value = "";
     for (AbsStaffMember e : repository.getAllMembers()) {
-      value = String.format("%d, %s, %s, %s, Salary: %.02f€, Paid: %.02f €", e.getID(), e.getName(),
-          e.getAddress(), e.getPhone(), e.getSalary(), e.getTotalPaid());
+      MemberDTO dto = new MemberDTO(e);
+      value = String.format("%d, %s, %s, %s, Salary: %.02f€, Paid: %.02f €", dto.getID(),
+          dto.getName(), dto.getAddress(), dto.getPhone(), dto.getSalary(), dto.getTotalPaid());
       employees += value + "\n";
 
     }
@@ -73,7 +74,6 @@ public class JobsController {
       if (name.equals(m.getName())) {
         System.out.println("Member " + name + " is being removed.");
         repository.removeMember(m);
-        return;
       }
     }
   }
