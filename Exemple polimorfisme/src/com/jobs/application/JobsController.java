@@ -1,5 +1,6 @@
 package com.jobs.application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jobs.domain.AbsStaffMember;
@@ -31,39 +32,31 @@ public class JobsController {
 
   public void createManagerEmployee(String name, String address, String phone,
       double salaryPerMonth) throws Exception {
-    // TODO Auto-generated method stub
     Employee manager = new Employee(name, address, phone, salaryPerMonth,
         PaymentFactory.createPaymentRateManager());
     repository.addMember(manager);
   }
 
-  public void createVolunteer(String string, String string2, String string3) throws Exception {
-    // TODO Auto-generated method stub
+  public void createVolunteer(String name, String address, String phone) throws Exception {
     double salaryPerMonth = 0.0;
-    Volunteer volunteer = new Volunteer(string, string2, string3, salaryPerMonth,
+    Volunteer volunteer = new Volunteer(name, address, phone, salaryPerMonth,
         PaymentFactory.createPaymentRateVounteer());
     repository.addMember(volunteer);
 
   }
 
   public void payAllEmployeers() {
-    // TODO Auto-generated method stub
-    for (AbsStaffMember e : repository.getAllMembers()) {
-      e.pay();
+    for (AbsStaffMember staff : repository.getAllMembers()) {
+      staff.pay();
     }
 
   }
 
-  public String getAllEmployees() {
-    // TODO Auto-generated method stub
-    String employees = "";
-    String value = "";
-    for (AbsStaffMember e : repository.getAllMembers()) {
-      MemberDTO dto = new MemberDTO(e);
-      value = String.format("%d, %s, %s, %s, Salary: %.02f€, Paid: %.02f €", dto.getID(),
-          dto.getName(), dto.getAddress(), dto.getPhone(), dto.getSalary(), dto.getTotalPaid());
-      employees += value + "\n";
-
+  public ArrayList<MemberDTO> getAllEmployees() throws Exception {
+    ArrayList<MemberDTO> employees = new ArrayList<MemberDTO>();
+    for (AbsStaffMember staff : repository.getAllMembers()) {
+      MemberDTO dto = new MemberDTO(staff);
+      employees.add(dto);
     }
     return employees;
   }
@@ -72,7 +65,6 @@ public class JobsController {
     List<AbsStaffMember> list = repository.getAllMembers();
     for (AbsStaffMember m : list) {
       if (name.equals(m.getName())) {
-        System.out.println("Member " + name + " is being removed.");
         repository.removeMember(m);
       }
     }

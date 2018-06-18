@@ -1,6 +1,10 @@
 package com.jobs.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jobs.application.JobsController;
+import com.jobs.application.MemberDTO;
 
 public class Main {
 
@@ -16,20 +20,34 @@ public class Main {
 
     controller.payAllEmployeers();
 
-    String allEmployees = controller.getAllEmployees();
-
-    System.out.println("EMPLOYEES: " + allEmployees + " \n");
+    List<MemberDTO> allEmployees = new ArrayList<MemberDTO>();
+    allEmployees = controller.getAllEmployees();
+    String mem = "";
+    System.out.print("EMPLOYEES: ");
+    for (MemberDTO member : allEmployees) {
+      mem = member.getMemberString();
+      System.out.println(mem);
+    }
+    System.out.print("\n");
 
     controller.removeMember("Laura Employee");
     allEmployees = controller.getAllEmployees();
 
-    System.out.println("EMPLOYEES: " + allEmployees + " \n");
+    System.out.print("EMPLOYEES: ");
+    for (MemberDTO member : allEmployees) {
+      mem = member.getMemberString();
+      System.out.println(mem);
+    }
+    System.out.print("\n");
 
     controller.removeMember("Juan Volunteer");
-
     allEmployees = controller.getAllEmployees();
-
-    System.out.println("EMPLOYEES: " + allEmployees + " \n");
+    System.out.print("EMPLOYEES: ");
+    for (MemberDTO member : allEmployees) {
+      mem = member.getMemberString();
+      System.out.println(mem);
+    }
+    System.out.print("\n");
 
   }
 

@@ -10,13 +10,25 @@ public class MemberDTO {
   public double salaryPerMonth;
   public double totalPaid;
 
-  public MemberDTO(AbsStaffMember a) {
-    this.address = a.getAddress();
-    this.id = a.getID();
-    this.name = a.getName();
-    this.phone = a.getPhone();
-    this.salaryPerMonth = a.getSalary();
-    this.totalPaid = a.getTotalPaid();
+  public MemberDTO(AbsStaffMember staff) throws Exception {
+    if (staff == null)
+      throw new Exception();
+    this.address = staff.getAddress();
+    this.id = staff.getID();
+    this.name = staff.getName();
+    this.phone = staff.getPhone();
+    this.salaryPerMonth = staff.getSalary();
+    this.totalPaid = staff.getTotalPaid();
+  }
+
+  public MemberDTO getMember() {
+    return this;
+  }
+
+  public String getMemberString() {
+    return String.format("%d, %s, %s, %s, Salary: %.02f€, Paid: %.02f €", this.getID(),
+        this.getName(), this.getAddress(), this.getPhone(), this.getSalary(), this.getTotalPaid());
+
   }
 
   public int getID() {
